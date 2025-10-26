@@ -6,7 +6,8 @@ import Link from '@/components/Link'
 import PageTitle from '@/components/PageTitle'
 import SectionContainer from '@/components/SectionContainer'
 import Image from '@/components/Image'
-import Tag from '@/components/Tag'
+// পরিবর্তন ১: Category.tsx থেকে Category ইমপোর্ট করুন
+import Category from '@/components/Category'
 import siteMetadata from '@/data/siteMetadata'
 import ScrollTopAndComment from '@/components/ScrollTopAndComment'
 
@@ -30,7 +31,8 @@ interface LayoutProps {
 }
 
 export default function PostLayout({ content, authorDetails, next, prev, children }: LayoutProps) {
-  const { filePath, path, slug, date, title, tags } = content
+  // পরিবর্তন ২: 'tags' কে 'categories' নামে রিনেম করুন
+  const { filePath, path, slug, date, title, tags: categories } = content
   const basePath = path.split('/')[0]
 
   return (
@@ -111,16 +113,17 @@ export default function PostLayout({ content, authorDetails, next, prev, childre
                 </div>
               )}
             </div>
+            {/* পরিবর্তন ৩: 'tags' কে 'categories' দিয়ে প্রতিস্থাপন */}
             <footer>
               <div className="divide-gray-200 text-sm leading-5 font-medium xl:col-start-1 xl:row-start-2 xl:divide-y dark:divide-gray-700">
-                {tags && (
+                {categories && (
                   <div className="py-4 xl:py-8">
                     <h2 className="text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">
-                      Tags
+                      Categories
                     </h2>
                     <div className="flex flex-wrap">
-                      {tags.map((tag) => (
-                        <Tag key={tag} text={tag} />
+                      {categories.map((category) => (
+                        <Category key={category} text={category} />
                       ))}
                     </div>
                   </div>
